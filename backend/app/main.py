@@ -325,9 +325,7 @@ async def websocket_video_feed(websocket: WebSocket):
     try:
         while True:
             try:
-                frame_data = await asyncio.wait_for(websocket.receive_bytes(), timeout=10.0)
-            except asyncio.TimeoutError:
-                continue
+                frame_data = await asyncio.wait_for(websocket.receive_bytes(), timeout=90.0) #websocket üzerinden veri alma işlemi için 90 saniyelik bir zaman aşımı belirledik. Eğer bu süre içinde veri alınmazsa, asyncio.TimeoutError istisnası tetiklenecek ve döngü devam edecek. Bu, bağlantının canlı kalmasını sağlar ve uzun süre veri gelmemesi durumunda bile bağlantının kapanmasını önler.
             except WebSocketDisconnect:
                 print("WebSocket: Client disconnected.")
                 break
