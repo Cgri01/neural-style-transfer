@@ -158,7 +158,7 @@ def health_check():
 @app.post("/process_frame")
 async def process_frame(
     file: UploadFile = File(...),  # Frontend'den gelen resim dosyası
-    process_size: int = Form(384, description="Process Size (256, 384, 512, 640)")
+    process_size: int = Form(384, description="Process Size (256, 384, 512, 640, 1024)")
 ):
 
     
@@ -197,7 +197,7 @@ async def process_frame(
         raise HTTPException(status_code=500, detail=f"Model error: {str(e)}")
     
     
-    valid_sizes = [256, 384, 512, 640]
+    valid_sizes = [256, 384, 512, 640 , 1024]
     if process_size not in valid_sizes:
         process_size = 384  # Varsayılan
     
